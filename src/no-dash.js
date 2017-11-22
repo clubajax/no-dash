@@ -9,8 +9,11 @@
 	const global = typeof window !== undefined ? window : global;
 
 	function copy (data) {
-		let newData;
-		if (Array.isArray(data)) {
+		if (!data) {
+			return data;
+		}
+		const type = getType(data);
+		if (type === 'array') {
 			return data.map((item) => {
 				if (item && typeof item === 'object') {
 					return copy(item);
@@ -18,21 +21,20 @@
 				return item;
 			});
 		}
-		if (data && typeof data === 'object') {
 
-			if (data.innerHTML || data === global) {
-				throw new Error('HTMLElements and the window object cannot be copied');
-			}
+		if (type === 'html' || type === 'window') {
+			throw new Error('HTMLElements and the window object cannot be copied');
+		}
 
-			if (data instanceof Date) {
-				return new Date(data.getTime());
-			}
+		if (type === 'date') {
+			return new Date(data.getTime());
+		}
 
-			if (data instanceof Function) {
-				return data;
-			}
+		if (type === 'function') {
+			return data;
+		}
 
-			// needs to be reduce
+		if (type === 'object') {
 			return Object.keys(data).reduce((obj, key) => {
 				const item = data[key];
 				if (typeof item === 'object') {
@@ -47,14 +49,38 @@
 	}
 
 	function equal (a, b) {
-		if (typeof a !== typeof b) {
+		const typeA = getType(a);
+		const typeB = getType(b);
+		if (typeA !== typeB) {
 			return false;
 		}
-		const type = typeof a;
-		if (/number|string/.test(type)){
+		const type = typeA;
+		if (/number|string|boolean/.test(type)){
 			return a === b;
 		}
 
+		if (type === 'date') {
+			return a.getTime() === b.getTime();
+		}
+
+		if (type === 'nan') {
+			return true;
+		}
+
+		if (type === 'array') {
+			return a.every((item, i) => {
+				return equal(item, b[i]);
+			});
+		}
+
+		if (type === 'object') {
+			return Object.keys(a).every((key) => {
+				return equal(a[key], b[key]);
+			})
+		}
+
+		console.warn('Unsure of type:', type);
+		return a === b;
 	}
 
 	function getType (item) {
@@ -71,6 +97,9 @@
 			if (item.documentElement || item.innerHTML !== undefined) {
 				return 'html';
 			}
+		}
+		if (typeof item === 'number' && isNaN(item)) {
+			return 'nan';
 		}
 		return typeof item;
 	}

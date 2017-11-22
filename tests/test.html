@@ -38,8 +38,29 @@
 			}, {
 				label: 'Dr Pepper',
 				value: .54
-			}];
+			}],
+			dataComplex1 = [
+				{
+					date: new Date(1511382870680),
+					array: [1,2,3, {a:'string'}]
+				},
+				true,
+				false,
+				1 / 0,
+				+'a'
+			],
+			dataComplex2 = [
+				{
+					date: new Date(1511382870680),
+					array: [1,2,3, {a:'string'}]
+				},
+				true,
+				false,
+				1 / 0,
+				+'a'
+			];
 
+		console.log(JSON.stringify(dataComplex1));
 		suite('no-dash', function () {
 
 			test('it should exist', function () {
@@ -75,6 +96,17 @@
 				expect(nodash.equal(1, 1)).to.equal(true);
 				expect(nodash.equal(0, 0)).to.equal(true);
 				expect(nodash.equal(1, 0)).to.equal(false);
+
+				expect(nodash.equal({ a: 1 }, { a: 1 })).to.equal(true);
+				expect(nodash.equal({}, {})).to.equal(true);
+
+				expect(nodash.equal(dataComplex1[0], dataComplex2[0])).to.equal(true);
+				expect(nodash.equal(dataComplex1[1], dataComplex2[1])).to.equal(true);
+				expect(nodash.equal(dataComplex1[2], dataComplex2[2])).to.equal(true);
+				expect(nodash.equal(dataComplex1[3], dataComplex2[3])).to.equal(true);
+				expect(nodash.equal(dataComplex1[4], dataComplex2[4])).to.equal(true);
+
+
 			});
 
 		});
