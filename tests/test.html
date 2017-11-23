@@ -42,7 +42,7 @@
 			dataComplex1 = [
 				{
 					date: new Date(1511382870680),
-					array: [1,2,3, {a:'string'}]
+					array: [1, 2, 3, { a: 'string' }]
 				},
 				true,
 				false,
@@ -52,15 +52,67 @@
 			dataComplex2 = [
 				{
 					date: new Date(1511382870680),
-					array: [1,2,3, {a:'string'}]
+					array: [1, 2, 3, { a: 'string' }]
 				},
 				true,
 				false,
 				1 / 0,
-				+'a'
-			];
+				+'a',
+				null,
+				undefined
+			],
+			dataBase = [
+				{
+					label: 'Coke',
+					high: 1.85,
+					low: -.2,
+					base: 0
+				}, {
+					label: 'Pepsi',
+					high: .6,
+					low: -.9,
+					base: 0
+				}],
+			dataItems = [{
+				label: 'Radio',
+				value: .20
+			}, {
+				label: 'Print',
+				value: .05
+			}, {
+				label: 'TV',
+				value: .32
+			}, {
+				label: 'Web',
+				value: .20
+			}],
+		dataDeep = [
+			{
+				label: 'foo',
+				data: [
+					{
+						label: 'a',
+						value: [1,2,3,4]
+					}, {
+						label: 'b',
+						value: [5,6,7,8]
+					}
+				]
+			},{
+				label: 'bar',
+				data: [
+					{
+						label: 'c',
+						value: [9,10,11,12]
+					}, {
+						label: 'd',
+						value: [13,14,15,16]
+					}
+				]
+			}
+		];
 
-		console.log(JSON.stringify(dataComplex1));
+
 		suite('no-dash', function () {
 
 			test('it should exist', function () {
@@ -105,8 +157,11 @@
 				expect(nodash.equal(dataComplex1[2], dataComplex2[2])).to.equal(true);
 				expect(nodash.equal(dataComplex1[3], dataComplex2[3])).to.equal(true);
 				expect(nodash.equal(dataComplex1[4], dataComplex2[4])).to.equal(true);
+				expect(nodash.equal(dataComplex1, dataComplex2)).to.equal(true);
+			});
 
-
+			test('it should collect values', function () {
+				expect(nodash.collectValues(dataItems).join(',')).to.equal('1,0');
 			});
 
 		});

@@ -79,7 +79,7 @@
 			})
 		}
 
-		console.warn('Unsure of type:', type);
+		console.warn('equality is nsure of type:', type);
 		return a === b;
 	}
 
@@ -104,10 +104,15 @@
 		return typeof item;
 	}
 
+	function collectValues (arr, props) {
+
+	}
+
 	const nodash = {
 		copy,
 		equal,
-		getType
+		getType,
+		collectValues
 	};
 
 	return nodash;
