@@ -104,7 +104,37 @@
 		return typeof item;
 	}
 
+	function getObject (o, path) {
+		return path.split('.').reduce((obj, key) => {
+			if (obj && typeof obj === 'object' && obj[key]) {
+				return obj[key];
+			}
+			return null;
+		}, o);
+	}
+
+	function setObject (o, path, value) {
+		return path.split('.').reduce((obj, key, i, array) => {
+			if (i === array.length - 1) {
+				obj[key] = value;
+				return obj;
+			}
+			if (typeof obj[key] !== 'object') {
+				if (isNaN(parseInt(key))) {
+					obj[key] = {};
+				} else {
+					obj[key] = [];
+				}
+			}
+			return obj[key];
+		}, o);
+	}
+
 	function collectValues (arr, props) {
+
+	}
+
+	function collectProperties (item, props) {
 
 	}
 
@@ -112,6 +142,8 @@
 		copy,
 		equal,
 		getType,
+		getObject,
+		setObject,
 		collectValues
 	};
 
