@@ -119,11 +119,15 @@
 	}
 
 	function sawLoop (collection, callback) {
+		const result = [];
 		collection[0].forEach((nada, valueIndex) => {
 			collection.forEach((values, collectionIndex) => {
-				callback(values[valueIndex], valueIndex, collectionIndex);
+				const value = values[valueIndex];
+				callback(value, valueIndex, collectionIndex);
+				result.push(value);
 			});
-		})
+		});
+		return result;
 	}
 
 	function collectValues (arr, props) {
