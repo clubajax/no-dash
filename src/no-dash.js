@@ -8,6 +8,8 @@
 
 	const global = typeof window !== undefined ? window : global;
 
+	// OBJECTS
+
 	function copy (data) {
 		if (!data) {
 			return data;
@@ -79,29 +81,8 @@
 			})
 		}
 
-		console.warn('equality is nsure of type:', type);
+		console.warn('equality is unsure of type:', type);
 		return a === b;
-	}
-
-	function getType (item) {
-		if (typeof item === 'object') {
-			if (Array.isArray(item)) {
-				return 'array';
-			}
-			if (item instanceof Date) {
-				return 'date';
-			}
-			if (item === global) {
-				return 'window';
-			}
-			if (item.documentElement || item.innerHTML !== undefined) {
-				return 'html';
-			}
-		}
-		if (typeof item === 'number' && isNaN(item)) {
-			return 'nan';
-		}
-		return typeof item;
 	}
 
 	function getObject (o, path) {
@@ -130,6 +111,21 @@
 		}, o);
 	}
 
+	// ARRAYS
+	function loop (count, callback) {
+		for (let i = 0; i < count; i++) {
+			callback(i);
+		}
+	}
+
+	function sawLoop (collection, callback) {
+		collection[0].forEach((nada, valueIndex) => {
+			collection.forEach((values, collectionIndex) => {
+				callback(values[valueIndex], valueIndex, collectionIndex);
+			});
+		})
+	}
+
 	function collectValues (arr, props) {
 
 	}
@@ -138,13 +134,54 @@
 
 	}
 
+	// VALUES
+
+	function getType (item) {
+		if (typeof item === 'object') {
+			if (Array.isArray(item)) {
+				return 'array';
+			}
+			if (item instanceof Date) {
+				return 'date';
+			}
+			if (item === global) {
+				return 'window';
+			}
+			if (item.documentElement || item.innerHTML !== undefined) {
+				return 'html';
+			}
+		}
+		if (typeof item === 'number' && isNaN(item)) {
+			return 'nan';
+		}
+		return typeof item;
+	}
+
+	// STRINGS
+
+	function dashify (word) {
+		return word.replace(/\s/g, '-').toLowerCase();
+	}
+
+	function cap (word) {
+		return word.substring(0, 1).toUpperCase() + word.substring(1);
+	}
+
+
+
 	const nodash = {
 		copy,
 		equal,
-		getType,
 		getObject,
 		setObject,
-		collectValues
+
+		loop,
+		sawLoop,
+
+		getType,
+
+		dashify,
+		cap
 	};
 
 	return nodash;
