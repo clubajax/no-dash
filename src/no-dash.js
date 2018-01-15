@@ -123,7 +123,9 @@
 		collection[0].forEach((nada, valueIndex) => {
 			collection.forEach((values, collectionIndex) => {
 				const value = values[valueIndex];
-				callback(value, valueIndex, collectionIndex);
+				if (callback) {
+					callback(value, valueIndex, collectionIndex);
+				}
 				result.push(value);
 			});
 		});
