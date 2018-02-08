@@ -155,6 +155,9 @@
 				expect(nodash.getObject(o1, 'a.b')).to.equal(o1.a.b);
 				expect(nodash.getObject(o2, 'a.0.b')).to.equal(1);
 				expect(nodash.getObject(o2, 'a.1.c')).to.equal(o2.a[1].c);
+
+				expect(nodash.getObject(o1, 'a.d.e.e.e')).to.equal(null);
+				expect(nodash.getObject(o2, 'a.3')).to.equal(null);
 			});
 
 			test('it should setObject', () => {
@@ -208,6 +211,7 @@
 
 		suite('values', () => {
 			test('it should return item type', () => {
+				expect(nodash.getType(null)).to.equal('null');
 				expect(nodash.getType(1)).to.equal('number');
 				expect(nodash.getType('a')).to.equal('string');
 				expect(nodash.getType(new Date())).to.equal('date');

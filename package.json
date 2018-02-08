@@ -1,6 +1,6 @@
 {
   "name": "@clubajax/no-dash",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "author": "clubajax",
   "main": "src/no-dash.js",
   "description": "Smaller, common utility functionality used to replace LoDash.",
@@ -16,9 +16,9 @@
   "directories": {
     "test": "tests"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+	"scripts": {
+		"start": "grunt dev"
+	},
 	"devDependencies": {
 		"chai": "^4.0.2",
 		"grunt": "^1.0.1",

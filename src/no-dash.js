@@ -85,13 +85,23 @@
 		return a === b;
 	}
 
+
+
+	
 	function getObject (o, path) {
-		return path.split('.').reduce((obj, key) => {
-			if (obj && typeof obj === 'object' && obj[key]) {
-				return obj[key];
+		console.log('getObject');
+		const paths = path.split('.');
+		let value = o;
+		let key;
+		for (let i = 0; i < paths.length; i++) {
+			key = paths[i];
+			if (value[key] !== undefined) {
+				value = value[key];
+			} else {
+				return null;
 			}
-			return null;
-		}, o);
+		}
+		return value;
 	}
 
 	function setObject (o, path, value) {
@@ -143,6 +153,9 @@
 	// VALUES
 
 	function getType (item) {
+		if (item === null) {
+			return 'null';
+		}
 		if (typeof item === 'object') {
 			if (Array.isArray(item)) {
 				return 'array';

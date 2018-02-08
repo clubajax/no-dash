@@ -16,7 +16,7 @@ Creates a deep copy of a JavaScript object. HTML elements will throw errors. fun
 Determines if two objects have deep equality.
 
 ### getObject
-Returns an object based on a stringified path.
+Returns a value from an object based on a stringified path.
 
 ### setObject
 Sets a value to an object based on a stringified path.
@@ -43,6 +43,7 @@ Extends the native `typeof` to also return:
 * date
 * html
 * nan
+* null
 
 Strings
 -------
