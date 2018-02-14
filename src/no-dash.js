@@ -81,7 +81,6 @@
 			})
 		}
 
-		console.warn('equality is unsure of type:', type);
 		return a === b;
 	}
 
