@@ -25,7 +25,7 @@ Arrays
 ------
 
 ### loop
-A "lazy" for loop.
+A "lazy" for-loop.
 
 ### sawLoop
 Loops across an array of arrays, starting with 0 of each array:
@@ -33,6 +33,9 @@ Loops across an array of arrays, starting with 0 of each array:
 	0:0, 0:1, 0:2 - 1:0, 1:1, 1:2 - etc
 
 Called a "saw" loop because it starts at the top of the first, goes down to the bottom, and moves up to the top of the second.
+
+### deDupe
+Removes duplicates from arrays. A second, optional argument is `property` for dealing with arrays of objects.
 
 Values
 ------

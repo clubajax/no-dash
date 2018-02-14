@@ -178,6 +178,21 @@
 		});
 
 		suite('arrays', () => {
+			test('it should deDupe', () => {
+				let result;
+				result = nodash.deDupe([1,2,3,4]);
+				expect(result.length).to.equal(4);
+
+				result = nodash.deDupe([1,2,3,4,2,3,4]);
+				expect(result.length).to.equal(4);
+
+				result = nodash.deDupe([{id:1},{id:2},{id:3}], 'id');
+				expect(result.length).to.equal(3);
+
+				result = nodash.deDupe([{id:1},{id:2},{id:3},{id:2},{id:3}], 'id');
+				expect(result.length).to.equal(3);
+			});
+
 			test('it should loop', () => {
 				const result = [];
 				nodash.loop(4, (i) => { result.push(i); });

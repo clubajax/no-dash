@@ -85,11 +85,7 @@
 		return a === b;
 	}
 
-
-
-	
 	function getObject (o, path) {
-		console.log('getObject');
 		const paths = path.split('.');
 		let value = o;
 		let key;
@@ -126,6 +122,26 @@
 		for (let i = 0; i < count; i++) {
 			callback(i);
 		}
+	}
+
+	function deDupe (array, prop) {
+		const props = [];
+		if (prop) {
+			return array.filter((item) => {
+				if (props.find(p => item[prop] === p)) {
+					return false;
+				}
+				props.push(item[prop]);
+				return true;
+			});
+		}
+		return array.filter((item) => {
+			if (props.find(p => item === p)) {
+				return false;
+			}
+			props.push(item);
+			return true;
+		});
 	}
 
 	function sawLoop (collection, callback) {
@@ -195,6 +211,7 @@
 		setObject,
 
 		loop,
+		deDupe,
 		sawLoop,
 
 		getType,
