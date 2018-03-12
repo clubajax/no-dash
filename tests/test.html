@@ -86,31 +86,39 @@
 				label: 'Web',
 				value: .20
 			}],
-		dataDeep = [
-			{
-				label: 'foo',
-				data: [
-					{
-						label: 'a',
-						value: [1,2,3,4]
-					}, {
-						label: 'b',
-						value: [5,6,7,8]
-					}
-				]
-			},{
-				label: 'bar',
-				data: [
-					{
-						label: 'c',
-						value: [9,10,11,12]
-					}, {
-						label: 'd',
-						value: [13,14,15,16]
-					}
-				]
-			}
-		];
+			dataDeep = [
+				{
+					label: 'foo',
+					data: [
+						{
+							label: 'a',
+							value: [1, 2, 3, 4]
+						}, {
+							label: 'b',
+							value: [5, 6, 7, 8]
+						}
+					]
+				}, {
+					label: 'bar',
+					data: [
+						{
+							label: 'c',
+							value: [9, 10, 11, 12]
+						}, {
+							label: 'd',
+							value: [13, 14, 15, 16]
+						}
+					]
+				}
+			],
+			dataSuperSet = {
+				name: 'Set',
+				data: [{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }]
+			},
+			dataSubSet = {
+				name: 'Set',
+				data: [{ a: 1 }, { b: 2 }]
+			};
 
 
 		suite('no-dash', function () {
@@ -119,17 +127,7 @@
 			});
 		});
 
-		suite('objects', () => {
-			test('it should copy data', () => {
-				const data = nodash.copy(data01);
-
-				expect(data).to.not.equal(data01);
-				expect(data[0]).to.not.equal(data01[0]);
-				expect(data.length).to.equal(data01.length);
-				expect(data[0].value).to.equal(data01[0].value);
-				expect(data[0].label).to.equal(data01[0].label);
-			});
-
+		suite('equal', function () {
 			test('it should compare data', () => {
 				const data = nodash.copy(data01);
 
@@ -145,12 +143,28 @@
 				expect(nodash.equal(dataComplex1[2], dataComplex2[2])).to.equal(true);
 				expect(nodash.equal(dataComplex1[3], dataComplex2[3])).to.equal(true);
 				expect(nodash.equal(dataComplex1[4], dataComplex2[4])).to.equal(true);
-				expect(nodash.equal(dataComplex1, dataComplex2)).to.equal(true);
+				expect(nodash.equal(dataComplex1, dataComplex2)).to.equal(false);
+
+				expect(nodash.equal(dataSubSet, dataSuperSet)).to.equal(false);
+				expect(nodash.equal(dataSuperSet, dataSubSet)).to.equal(false);
+
+			});
+		});
+
+		suite('objects', () => {
+			test('it should copy data', () => {
+				const data = nodash.copy(data01);
+
+				expect(data).to.not.equal(data01);
+				expect(data[0]).to.not.equal(data01[0]);
+				expect(data.length).to.equal(data01.length);
+				expect(data[0].value).to.equal(data01[0].value);
+				expect(data[0].label).to.equal(data01[0].label);
 			});
 
 			test('it should getObject', () => {
 				const o1 = { a: { b: { c: 10 } } };
-				const o2 = { a: [ { b: 1 }, { c: 2 } ] };
+				const o2 = { a: [{ b: 1 }, { c: 2 }] };
 				expect(nodash.getObject(o1, 'a.b.c')).to.equal(10);
 				expect(nodash.getObject(o1, 'a.b')).to.equal(o1.a.b);
 				expect(nodash.getObject(o2, 'a.0.b')).to.equal(1);
@@ -180,16 +194,16 @@
 		suite('arrays', () => {
 			test('it should deDupe', () => {
 				let result;
-				result = nodash.deDupe([1,2,3,4]);
+				result = nodash.deDupe([1, 2, 3, 4]);
 				expect(result.length).to.equal(4);
 
-				result = nodash.deDupe([1,2,3,4,2,3,4]);
+				result = nodash.deDupe([1, 2, 3, 4, 2, 3, 4]);
 				expect(result.length).to.equal(4);
 
-				result = nodash.deDupe([{id:1},{id:2},{id:3}], 'id');
+				result = nodash.deDupe([{ id: 1 }, { id: 2 }, { id: 3 }], 'id');
 				expect(result.length).to.equal(3);
 
-				result = nodash.deDupe([{id:1},{id:2},{id:3},{id:2},{id:3}], 'id');
+				result = nodash.deDupe([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 2 }, { id: 3 }], 'id');
 				expect(result.length).to.equal(3);
 			});
 

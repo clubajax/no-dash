@@ -70,7 +70,7 @@
 		}
 
 		if (type === 'array') {
-			return a.every((item, i) => {
+			return a.length === b.length && a.every((item, i) => {
 				return equal(item, b[i]);
 			});
 		}

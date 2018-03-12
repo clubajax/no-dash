@@ -1,6 +1,6 @@
 {
   "name": "@clubajax/no-dash",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "author": "clubajax",
   "main": "src/no-dash.js",
   "description": "Smaller, common utility functionality used to replace LoDash.",
