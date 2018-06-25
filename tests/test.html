@@ -39,6 +39,20 @@
 				label: 'Dr Pepper',
 				value: .54
 			}],
+			dataValues1 = {
+				a: 1,
+				b: 2,
+				c: 3,
+				d: 4
+			},
+			dataValues2 = {
+				d: 4,
+				c: 3,
+				b: 2,
+				a: 1
+			},
+			arrayValues1 = [1,2,3,4],
+			arrayValues2 = [4,3,2,1],
 			dataComplex1 = [
 				{
 					date: new Date(1511382870680),
@@ -148,6 +162,11 @@
 				expect(nodash.equal(dataSubSet, dataSuperSet)).to.equal(false);
 				expect(nodash.equal(dataSuperSet, dataSubSet)).to.equal(false);
 
+				expect(nodash.equal(dataValues1, dataValues2)).to.equal(true);
+
+				expect(nodash.equal([1,1,1], [1,1])).to.equal(false);
+				expect(nodash.equal([1,1], [1,1,1])).to.equal(false);
+
 			});
 		});
 
@@ -226,6 +245,16 @@
 				const indicies = [];
 				nodash.sawLoop(values, (value, valueIndex, collectionIndex) => { indicies.push(`${valueIndex}.${collectionIndex}`); });
 				expect(indicies.join(' ')).to.equal('0.0 0.1 1.0 1.1 2.0 2.1');
+			});
+
+			test('it should compare values', () => {
+				expect(nodash.equalValues(arrayValues1, arrayValues2)).to.equal(true);
+			});
+
+			test('it should remove values', () => {
+				expect(nodash.remove([1,2,3], 2).join(',')).to.equal('1,3');
+				expect(nodash.remove([1,2,3], 9).join(',')).to.equal('1,2,3');
+				expect(nodash.remove([1,2,2,2,3], 2).join(',')).to.equal('1,3');
 			});
 		});
 

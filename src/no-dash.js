@@ -117,10 +117,27 @@
 	}
 
 	// ARRAYS
+
+	function equalValues (a, b) {
+		const aTest = a.every(aItem => !!b.find(bItem => bItem === aItem));
+		const bTest = b.every(bItem => !!a.find(aItem => aItem === bItem));
+		return aTest && bTest;
+	}
+
 	function loop (count, callback) {
 		for (let i = 0; i < count; i++) {
 			callback(i);
 		}
+	}
+
+	function remove (array, value) {
+		array = [...array];
+		for (let i = array.length - 1; i >= 0 ; i--) {
+			if (value === array[i]) {
+				array.splice(i, 1);
+			}
+		}
+		return array;
 	}
 
 	function deDupe (array, prop) {
@@ -203,22 +220,26 @@
 
 
 
-	const nodash = {
+	return {
+		// objects
 		copy,
 		equal,
 		getObject,
 		setObject,
 
+		// array
+		equalValues,
 		loop,
 		deDupe,
 		sawLoop,
+		remove,
 
+		// types
 		getType,
 
+		// string
 		dashify,
 		cap
 	};
-
-	return nodash;
 
 }));

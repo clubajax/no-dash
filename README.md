@@ -24,6 +24,11 @@ Sets a value to an object based on a stringified path.
 Arrays
 ------
 
+### remove
+Removes all references of a value from an array
+
+    nodash.remove([1,2,2,2,3], 2); // [1,3]
+    
 ### loop
 A "lazy" for-loop.
 
@@ -37,7 +42,12 @@ Called a "saw" loop because it starts at the top of the first, goes down to the 
 ### deDupe
 Removes duplicates from arrays. A second, optional argument is `property` for dealing with arrays of objects.
 
-Values
+### equalValues
+Shallow comparison of two arrays, regardless of order:
+
+    nodash.equalValues([1,2,3,4], [4,3,2,1]); // true
+
+Types
 ------
 
 ### getType
