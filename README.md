@@ -55,8 +55,16 @@ Extends the native `typeof` to also return:
 * array
 * date
 * html
+* window (if browser environment)
+* global (if Node environment)
 * nan
 * null
+* error
+* promise
+* map
+* weakmap
+* set
+* weakset
 
 Strings
 -------

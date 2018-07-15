@@ -51,8 +51,8 @@
 				b: 2,
 				a: 1
 			},
-			arrayValues1 = [1,2,3,4],
-			arrayValues2 = [4,3,2,1],
+			arrayValues1 = [1, 2, 3, 4],
+			arrayValues2 = [4, 3, 2, 1],
 			dataComplex1 = [
 				{
 					date: new Date(1511382870680),
@@ -132,12 +132,36 @@
 			dataSubSet = {
 				name: 'Set',
 				data: [{ a: 1 }, { b: 2 }]
+			},
+			dataMapSet = {
+				m: new Map([[1, 'one']]),
+				s: new Set([1, 2, 3])
 			};
 
 
-		suite('no-dash', function () {
-			test('it should exist', function () {
-				expect(typeof nodash).to.equal('object');
+		suite('type', function () {
+			test('it should get types', function () {
+				expect(nodash.getType({})).to.equal('object');
+				expect(nodash.getType([])).to.equal('array');
+				expect(nodash.getType(1)).to.equal('number');
+				expect(nodash.getType(parseInt('a'))).to.equal('nan');
+				expect(nodash.getType('a')).to.equal('string');
+				expect(nodash.getType(new Date())).to.equal('date');
+				expect(nodash.getType(window)).to.equal('window');
+				expect(nodash.getType(document.createElement('div'))).to.equal('html');
+				//
+				expect(nodash.getType(arguments)).to.equal('arguments');
+				expect(nodash.getType(new Promise(() => {}))).to.equal('promise');
+				expect(nodash.getType(new Error('zap!'))).to.equal('error');
+				expect(nodash.getType(new ReferenceError('zap!'))).to.equal('error');
+
+
+				expect(nodash.getType(new Map())).to.equal('map');
+				expect(nodash.getType(new Set())).to.equal('set');
+				expect(nodash.getType(new WeakMap())).to.equal('weakmap');
+				expect(nodash.getType(new WeakSet())).to.equal('weakset');
+
+
 			});
 		});
 
@@ -164,9 +188,11 @@
 
 				expect(nodash.equal(dataValues1, dataValues2)).to.equal(true);
 
-				expect(nodash.equal([1,1,1], [1,1])).to.equal(false);
-				expect(nodash.equal([1,1], [1,1,1])).to.equal(false);
+				expect(nodash.equal([1, 1, 1], [1, 1])).to.equal(false);
+				expect(nodash.equal([1, 1], [1, 1, 1])).to.equal(false);
 
+				expect(nodash.equal(new Map([[1, 'one']]), new Map([[1, 'one']]))).to.equal(true);
+				expect(nodash.equal(new Set([1, 2, 3]), new Set([1, 2, 3]))).to.equal(true);
 			});
 		});
 
@@ -179,6 +205,12 @@
 				expect(data.length).to.equal(data01.length);
 				expect(data[0].value).to.equal(data01[0].value);
 				expect(data[0].label).to.equal(data01[0].label);
+
+				const d1 = nodash.copy(dataMapSet);
+				expect(d1).to.not.equal(dataMapSet);
+				expect(d1.m).to.not.equal(dataMapSet.m);
+				expect(d1.s).to.not.equal(dataMapSet.s);
+
 			});
 
 			test('it should getObject', () => {
@@ -252,9 +284,9 @@
 			});
 
 			test('it should remove values', () => {
-				expect(nodash.remove([1,2,3], 2).join(',')).to.equal('1,3');
-				expect(nodash.remove([1,2,3], 9).join(',')).to.equal('1,2,3');
-				expect(nodash.remove([1,2,2,2,3], 2).join(',')).to.equal('1,3');
+				expect(nodash.remove([1, 2, 3], 2).join(',')).to.equal('1,3');
+				expect(nodash.remove([1, 2, 3], 9).join(',')).to.equal('1,2,3');
+				expect(nodash.remove([1, 2, 2, 2, 3], 2).join(',')).to.equal('1,3');
 			});
 		});
 

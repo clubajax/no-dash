@@ -36,6 +36,14 @@
 			return data;
 		}
 
+		if (type === 'map') {
+			return new Map(data);
+		}
+
+		if (type === 'set') {
+			return new Set(data);
+		}
+
 		if (type === 'object') {
 			return Object.keys(data).reduce((obj, key) => {
 				const item = data[key];
@@ -75,7 +83,7 @@
 			});
 		}
 
-		if (type === 'object') {
+		if (type === 'object' || type === 'map' || type === 'set') {
 			return Object.keys(a).every((key) => {
 				return equal(a[key], b[key]);
 			})
@@ -185,6 +193,7 @@
 	// VALUES
 
 	function getType (item) {
+
 		if (item === null) {
 			return 'null';
 		}
@@ -195,11 +204,35 @@
 			if (item instanceof Date) {
 				return 'date';
 			}
+			if (item instanceof Promise) {
+				return 'promise';
+			}
+			if (item instanceof Error) {
+				return 'error';
+			}
+			if (item instanceof Map) {
+				return 'map';
+			}
+			if (item instanceof WeakMap) {
+				return 'weakmap';
+			}
+			if (item instanceof Set) {
+				return 'set';
+			}
+			if (item instanceof WeakSet) {
+				return 'weakset';
+			}
 			if (item === global) {
-				return 'window';
+				if (typeof window !== undefined) {
+					return 'window';
+				}
+				return 'global';
 			}
 			if (item.documentElement || item.innerHTML !== undefined) {
 				return 'html';
+			}
+			if(item.length !== undefined && item.callee) {
+				return 'arguments'
 			}
 		}
 		if (typeof item === 'number' && isNaN(item)) {
