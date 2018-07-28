@@ -288,6 +288,14 @@
 				expect(nodash.remove([1, 2, 3], 9).join(',')).to.equal('1,2,3');
 				expect(nodash.remove([1, 2, 2, 2, 3], 2).join(',')).to.equal('1,3');
 			});
+
+			test('it should determine if all values are the same', () => {
+				expect(nodash.same([1, 2, 3])).to.equal(false);
+				expect(nodash.same([1, 1, 1])).to.equal(true);
+				expect(nodash.same([{id:1},{id:1},{id:1, blah:2}], 'id')).to.equal(true);
+				expect(nodash.same([{id:1},{id:1},{id:1}])).to.equal(true);
+				expect(nodash.same([{id:1},{id:1},{id:3}])).to.equal(false);
+			});
 		});
 
 		suite('strings', () => {

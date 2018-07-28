@@ -148,6 +148,17 @@
 		return array;
 	}
 
+	function same (array, prop) {
+		const getValue = item => prop ? item[prop] : item;
+		const value = getValue(array[0]);
+		for( let i = 0; i < array.length; i++ ) {
+			if (!equal(getValue(array[i]), value)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	function deDupe (array, prop) {
 		const props = [];
 		if (prop) {
@@ -266,6 +277,7 @@
 		deDupe,
 		sawLoop,
 		remove,
+		same,
 
 		// types
 		getType,

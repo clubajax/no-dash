@@ -47,6 +47,14 @@ Shallow comparison of two arrays, regardless of order:
 
     nodash.equalValues([1,2,3,4], [4,3,2,1]); // true
 
+### same
+Determines if all values, or a property of a value, of an array are equal
+
+    nodash.same([1, 1, 1]) // true
+    nodash.same([1, 1, 2]) // false
+    nodash.same([{id:1},{id:1},{id:1}]) // true
+    nodash.same([{id:1},{id:1},{id:1, foo: 'bar'}], 'id') // true
+    
 Types
 ------
 
