@@ -6,6 +6,8 @@
 		window.nodash = factory(); }
 }(this, function () {
 
+	// https://github.com/30-seconds/30-seconds-of-code#readme
+
 	const global = typeof window !== undefined ? window : global;
 
 	// OBJECTS
