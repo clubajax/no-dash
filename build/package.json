@@ -1,0 +1,13 @@
+{
+  "name": "@clubajax/no-dash",
+  "version": "0.7.1",
+  "author": "clubajax",
+  "main": "no-dash.js",
+  "description": "Smaller, common utility functionality used to replace LoDash.",
+  "license": "MIT",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/clubajax/no-dash.git"
+  }
+}
