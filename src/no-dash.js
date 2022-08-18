@@ -6,9 +6,7 @@
 		window.nodash = factory(); }
 }(this, function () {
 
-	// https://github.com/30-seconds/30-seconds-of-code#readme
-
-	const global = typeof window !== undefined ? window : global;
+	const global = typeof window !== 'undefined' ? window : global;
 
 	// OBJECTS
 
@@ -116,7 +114,7 @@
 				return obj;
 			}
 			if (typeof obj[key] !== 'object') {
-				if (isNaN(parseInt(key))) {
+				if (Number.isNaN(parseInt(key, 10))) {
 					obj[key] = {};
 				} else {
 					obj[key] = [];
@@ -268,7 +266,7 @@
 				return 'weakset';
 			}
 			if (item === global) {
-				if (typeof window !== undefined) {
+				if (typeof window !== 'undefined') {
 					return 'window';
 				}
 				return 'global';
@@ -280,7 +278,7 @@
 				return 'arguments'
 			}
 		}
-		if (typeof item === 'number' && isNaN(item)) {
+		if (typeof item === 'number' && Number.isNaN(item)) {
 			return 'nan';
 		}
 		return typeof item;
