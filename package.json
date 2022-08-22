@@ -1,13 +1,14 @@
 {
   "name": "@clubajax/no-dash",
-  "version": "0.7.1",
+  "version": "0.7.3",
   "author": "clubajax",
   "main": "no-dash.js",
   "description": "Smaller, common utility functionality used to replace LoDash.",
   "license": "MIT",
   "scripts": {
     "start": "http-server",
-    "build": "node ./scripts/deploy.js"
+    "build": "node ./scripts/deploy.js",
+    "jk": "node ./scripts/deploy.js --jk"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,7 @@
     "test": "tests"
   },
   "devDependencies": {
-    "@clubajax/node-file-managment": "^0.1.3",
+    "@clubajax/node-file-managment": "^0.1.7",
     "chai": "^4.0.2",
     "fs-extra": "^10.1.0",
     "http-server": "^14.1.1",
